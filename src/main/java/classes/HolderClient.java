@@ -31,8 +31,6 @@ public class HolderClient extends HolderConnection {
         } catch (Exception x) {
             x.printStackTrace();
         }
-
-        this.waitForAnswer();
     }
 
     @Override

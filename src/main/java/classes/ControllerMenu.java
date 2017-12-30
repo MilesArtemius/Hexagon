@@ -37,7 +37,7 @@ public class ControllerMenu {
                     server.connect();
                     HolderConnection.keep(server);
 
-                    Parent root = FXMLLoader.load(getClass().getResource("../resources/game.fxml"));
+                    Parent root = FXMLLoader.load(getClass().getResource("/game.fxml"));
                     ((Stage) server_button.getScene().getWindow()).setScene(new Scene(root, 600, 600));
                 } catch (IOException e) {
                     System.out.println("Something went wrong...");
@@ -53,7 +53,7 @@ public class ControllerMenu {
                     client.connect();
                     HolderConnection.keep(client);
 
-                    Parent root = FXMLLoader.load(getClass().getResource("../resources/game.fxml"));
+                    Parent root = FXMLLoader.load(getClass().getResource("/game.fxml"));
                     ((Stage) client_button.getScene().getWindow()).setScene(new Scene(root, 600, 600));
                 } catch (IOException e) {
                     System.out.println("Something went wrong...");
