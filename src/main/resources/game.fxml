@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="classes.ControllerGame">
+   <children>
+      <VBox prefHeight="600.0" prefWidth="200.0">
+         <children>
+            <Pane fx:id="item00" prefHeight="200.0" prefWidth="200.0" />
+            <Pane fx:id="item01" prefHeight="200.0" prefWidth="200.0" />
+            <Pane fx:id="item02" prefHeight="200.0" prefWidth="200.0" />
+         </children></VBox>
+      <VBox prefHeight="6000" prefWidth="200.0">
+         <children>
+            <Pane fx:id="item10" prefHeight="200.0" prefWidth="200.0" />
+            <Pane fx:id="item11" prefHeight="200.0" prefWidth="200.0" />
+            <Pane fx:id="item12" prefHeight="200.0" prefWidth="200.0" />
+         </children></VBox>
+      <VBox prefHeight="600.0" prefWidth="200.0">
+         <children>
+            <Pane fx:id="item20" prefHeight="200.0" prefWidth="200.0" />
+            <Pane fx:id="item21" prefHeight="200.0" prefWidth="200.0" />
+            <Pane fx:id="item22" prefHeight="200.0" prefWidth="200.0" />
+         </children></VBox>
+   </children>
+</HBox>
