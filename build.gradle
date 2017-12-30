@@ -9,6 +9,18 @@ repositories {
     mavenCentral()
 }
 
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'classes.Main'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile 'com.google.code.gson:gson:1.7.2'
+    compile 'com.google.firebase:firebase-admin:5.1.0'
+    compile 'com.google.guava:guava:14.0.1'
 }
