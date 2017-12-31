@@ -23,12 +23,6 @@ public class ControllerMenu {
 
     @FXML
     private void initialize() {
-        try {
-            System.out.println(InetAddress.getLocalHost());
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-
         server_button.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
