@@ -69,7 +69,7 @@ public class ControllerGame {
                 final int k = i;
                 final int l = j;
 
-                field[i][j] = 0;
+                field[i][j] = i + j + 5;
                 layout[i][j].setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
                 layout[i][j].setOnMouseClicked(event -> {
                     if (server.isReadyForAction) {
