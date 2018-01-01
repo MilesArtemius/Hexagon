@@ -34,6 +34,7 @@ public class ControllerMenu {
                     Parent root = FXMLLoader.load(getClass().getResource("/game.fxml"));
                     ((Stage) server_button.getScene().getWindow()).setScene(new Scene(root, 600, 600));
                 } catch (IOException e) {
+                    e.printStackTrace();
                     System.out.println("Something went wrong...");
                 }
             }
