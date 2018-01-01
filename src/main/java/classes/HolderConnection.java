@@ -32,7 +32,8 @@ public class HolderConnection {
             System.out.println(line);
             listener.OnAnswerGot(Integer.parseInt(line));
         } catch (Exception e) {
-            System.out.println("Server's down");
+            e.printStackTrace();
+            System.out.println("Server's up");
         }
     }
 
