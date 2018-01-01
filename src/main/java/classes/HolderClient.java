@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -77,25 +78,35 @@ public class HolderClient extends HolderConnection {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 HashMap<String, String> root = (HashMap<String, String>) dataSnapshot.getValue();
                 System.out.println(root);
-                for (Map.Entry<String, String> entry : root.entrySet()) {
-                    String value = entry.getValue();
 
-                    StackPane pane = new StackPane(new Label(entry.getKey()));
-                    pane.setAlignment(Pos.CENTER_LEFT);
-                    pane.setPadding(new Insets(5, 5, 5, 5));
-                    pane.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                        @Override
-                        public void handle(MouseEvent event) {
-                            for (Node node: vbox.getChildren()) {
-                                ((Pane) node).setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
-                            }
-                            pane.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-                            answer = value;
-                        }
-                    });
-                    vbox.getChildren().add(pane);
+                String myIp = "null";
+                try {
+                    myIp = InetAddress.getLocalHost().toString().substring(InetAddress.getLocalHost().toString().indexOf("/") + 1);
+                } catch (UnknownHostException e) {
+                    e.printStackTrace();
                 }
-                latch.countDown();
+
+                for (Map.Entry<String, String> entry : root.entrySet()) {
+                    if (!entry.getValue().equals(myIp)) {
+                        String value = entry.getValue();
+
+                        StackPane pane = new StackPane(new Label(entry.getKey()));
+                        pane.setAlignment(Pos.CENTER_LEFT);
+                        pane.setPadding(new Insets(5, 5, 5, 5));
+                        pane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                            @Override
+                            public void handle(MouseEvent event) {
+                                for (Node node : vbox.getChildren()) {
+                                    ((Pane) node).setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
+                                }
+                                pane.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+                                answer = value;
+                            }
+                        });
+                        vbox.getChildren().add(pane);
+                    }
+                    latch.countDown();
+                }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
