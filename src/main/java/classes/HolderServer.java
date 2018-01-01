@@ -1,6 +1,8 @@
 package classes;
 
-import classes.HolderConnection;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Dialog;
+import javafx.stage.StageStyle;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -22,9 +24,19 @@ public class HolderServer extends HolderConnection {
             ss = new ServerSocket(port); // создаем сокет сервера и привязываем его к вышеуказанному порту
             System.out.println("Waiting for a client...");
 
+            Dialog<Boolean> dialog = new Dialog<>();
+            dialog.initStyle(StageStyle.UNIFIED);
+            dialog.setTitle("Connecting...");
+            dialog.setContentText("Waiting for connection...");
+            dialog.show();
+
             socket = ss.accept(); // заставляем сервер ждать подключений и выводим сообщение когда кто-то связался с сервером
             System.out.println("Got a client :) ... Finally, someone saw me through all the cover!");
             System.out.println();
+
+            dialog.setContentText("Connected!");
+            dialog.setResult(Boolean.TRUE);
+            dialog.close();
 
             // Берем входной и выходной потоки сокета, теперь можем получать и отсылать данные клиенту.
             InputStream sin = socket.getInputStream();
@@ -33,17 +45,8 @@ public class HolderServer extends HolderConnection {
             // Конвертируем потоки в другой тип, чтоб легче обрабатывать текстовые сообщения.
             in = new DataInputStream(sin);
             out = new DataOutputStream(sout);
-
         } catch(Exception x) {
             x.printStackTrace();
         }
     }
-
-    /*public void setListener(AnswerListener answer) {
-        this.listener = answer;
-    }
-
-    public interface AnswerListener {
-        void OnAnswerGot(int answer);
-    }*/
 }

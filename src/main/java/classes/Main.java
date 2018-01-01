@@ -31,7 +31,8 @@ import java.util.Optional;
 
 public class Main extends Application {
 
-    private static String userName;
+    protected static String userName;
+    protected static HashMap<String, String> root;
 
     private String popUpDialog() {
         // Create the custom dialog.
@@ -69,7 +70,7 @@ public class Main extends Application {
                 FirebaseDatabase.getInstance().getReference().addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        HashMap<String, String> root = (HashMap<String, String>) dataSnapshot.getValue();
+                        root = (HashMap<String, String>) dataSnapshot.getValue();
                         for (Map.Entry<String, String> entry : root.entrySet()) {
                             if (newValue.trim().equals(entry.getKey())) {
                                 loginButton.setDisable(true);
@@ -125,7 +126,7 @@ public class Main extends Application {
         }
 
         try {
-            userName =popUpDialog();
+            userName = popUpDialog();
             FirebaseDatabase.getInstance().getReference().child(userName)
                     .setValue(InetAddress.getLocalHost().toString()
                     .substring(InetAddress.getLocalHost().toString().indexOf("/") + 1));

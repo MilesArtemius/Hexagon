@@ -49,7 +49,7 @@ public class ControllerGame {
         server = HolderConnection.get();
 
         server.setListener(answer -> {
-            layout[answer / 10][answer % 10].setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));;
+            layout[answer / 10][answer % 10].setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
         });
 
         for (int i = 0; i < 3; i++) {
