@@ -51,7 +51,7 @@ public class HolderClient extends HolderConnection {
             in = new DataInputStream(sin);
             out = new DataOutputStream(sout);
 
-
+            isReadyForAction = false;
         } catch (Exception x) {
             x.printStackTrace();
         }

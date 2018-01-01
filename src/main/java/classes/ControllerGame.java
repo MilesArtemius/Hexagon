@@ -59,12 +59,14 @@ public class ControllerGame {
 
                 layout[i][j].setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
                 layout[i][j].setOnMouseClicked(event -> {
-                    layout[k][l].setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+                    if (server.isReadyForAction) {
+                        layout[k][l].setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 
-                    System.out.println(k + " " + l);
-                    server.flushAnswer(10*k + l);
+                        System.out.println(k + " " + l);
+                        server.flushAnswer(10 * k + l);
 
-                    SwingUtilities.invokeLater(() -> server.waitForAnswer());
+                        SwingUtilities.invokeLater(() -> server.waitForAnswer());
+                    }
                 });
             }
         }

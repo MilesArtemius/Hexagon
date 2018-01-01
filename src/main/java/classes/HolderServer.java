@@ -45,6 +45,8 @@ public class HolderServer extends HolderConnection {
             // Конвертируем потоки в другой тип, чтоб легче обрабатывать текстовые сообщения.
             in = new DataInputStream(sin);
             out = new DataOutputStream(sout);
+
+            isReadyForAction = true;
         } catch(Exception x) {
             x.printStackTrace();
         }

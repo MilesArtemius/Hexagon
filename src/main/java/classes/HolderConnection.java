@@ -10,6 +10,8 @@ public class HolderConnection {
     DataInputStream in;
     DataOutputStream out;
 
+    boolean isReadyForAction;
+
     static HolderConnection connection;
 
     public static void keep(HolderConnection kept) {
@@ -26,6 +28,7 @@ public class HolderConnection {
     public void waitForAnswer() {
         try {
             String line = in.readUTF(); // ожидаем пока клиент пришлет строку текста.
+            isReadyForAction = true;
             System.out.println(line);
             listener.OnAnswerGot(Integer.parseInt(line));
         } catch (Exception e) {
@@ -37,6 +40,7 @@ public class HolderConnection {
         try{
             out.writeUTF(Integer.toString(ans)); // отсылаем клиенту обратно ту самую строку текста.
             out.flush(); // заставляем поток закончить передачу данных.
+            isReadyForAction = false;
         } catch (Exception e) {
             System.out.println("Server's down");
         }
