@@ -21,7 +21,7 @@ import java.io.IOException;
 public class ControllerGame {
 
     private Pane [][] layout;
-    private boolean [][] field = new boolean[3][3];
+    private int [][] field = new int[3][3];
     private HolderConnection server;
 
     @FXML
@@ -60,7 +60,7 @@ public class ControllerGame {
         server.setListener(answer -> {
             layout[answer / 10][answer % 10].setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
 
-            field[answer / 10][answer % 10] = true;
+            field[answer / 10][answer % 10] = 2;
             checkPosition("You lose!");
         });
 
@@ -69,17 +69,17 @@ public class ControllerGame {
                 final int k = i;
                 final int l = j;
 
-                field[i][j] = false;
+                field[i][j] = 0;
                 layout[i][j].setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
                 layout[i][j].setOnMouseClicked(event -> {
                     if (server.isReadyForAction) {
                         layout[k][l].setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 
-                        field[k][l] = true;
-                        checkPosition("You win!");
-
                         System.out.println(k + " " + l);
                         server.flushAnswer(10 * k + l);
+
+                        field[k][l] = 1;
+                        checkPosition("You win!");
 
                         SwingUtilities.invokeLater(() -> server.waitForAnswer());
                     } else {
@@ -97,14 +97,14 @@ public class ControllerGame {
     }
 
     private void checkPosition(String winner) {
-        if (field[0][0] && field[0][1] && field[0][2] ||
-                field[1][0] && field[1][1] && field[1][2] ||
-                field[2][0] && field[2][1] && field[2][2] ||
-                field[0][0] && field[1][0] && field[2][0] ||
-                field[0][1] && field[1][1] && field[2][1] ||
-                field[0][2] && field[1][2] && field[2][2] ||
-                field[0][0] && field[1][1] && field[2][2] ||
-                field[0][2] && field[1][1] && field[2][0]) {
+        if (((field[0][0] == field[0][1]) && (field[0][0] == field[0][2])) ||
+                ((field[1][0] == field[1][1]) && (field[1][0] == field[1][2])) ||
+                ((field[2][0] == field[2][1]) && (field[2][0] == field[2][2])) ||
+                ((field[0][0] == field[1][0]) && (field[0][0] == field[2][0])) ||
+                ((field[0][1] == field[1][1]) && (field[0][1] == field[2][1])) ||
+                ((field[0][2] == field[1][2]) && (field[0][2] == field[2][2])) ||
+                ((field[0][0] == field[1][1]) && (field[0][0] == field[2][2])) ||
+                ((field[0][2] == field[1][1]) && (field[0][2] == field[2][0]))) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Congratulations");
             alert.setHeaderText(null);
