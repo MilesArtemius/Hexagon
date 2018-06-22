@@ -1,5 +1,6 @@
 package classes;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -17,6 +18,7 @@ import javafx.stage.Stage;
 import javax.swing.*;
 import java.beans.EventHandler;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class ControllerGame {
 
@@ -61,7 +63,12 @@ public class ControllerGame {
             layout[answer / 10][answer % 10].setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
 
             field[answer / 10][answer % 10] = 2;
-            checkPosition("You lose!");
+
+            for (int i = 0; i < 3; i++) {
+                System.out.println(Arrays.toString(field[i]));
+            }
+
+            Platform.runLater(() ->checkPosition("You lose!"));
         });
 
         for (int i = 0; i < 3; i++) {
@@ -91,6 +98,10 @@ public class ControllerGame {
                     }
                 });
             }
+        }
+
+        for (int i = 0; i < 3; i++) {
+            System.out.println(Arrays.toString(field[i]));
         }
 
         SwingUtilities.invokeLater(() -> server.secondTurner());
